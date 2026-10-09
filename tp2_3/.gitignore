@@ -1,0 +1,4 @@
+# Fichier brut du CFPB (volumineux) : téléchargé par le notebook via kagglehub
+data/consumer_complaints.csv
+data/database.sqlite
+.ipynb_checkpoints/
