@@ -15,19 +15,19 @@ crédit…). Aujourd'hui ce tri est souvent manuel : il est lent, coûteux et so
 la réponse au client et peut entraîner des sanctions réglementaires.
 
 **Tâche NLP.** Classification **multi-classes** supervisée : à partir du texte libre de la réclamation
-(`Consumer complaint narrative`), prédire la **catégorie de produit** concernée (`Product`).
+(`consumer_complaint_narrative`), prédire la **catégorie de produit** concernée (`product`).
 
 **Jeu de données.** *Consumer Complaint Database* du **CFPB** (Consumer Financial Protection Bureau, agence
 fédérale américaine).
 
 | Élément | Détail |
 |---|---|
-| Source officielle | https://www.consumerfinance.gov/data-research/consumer-complaints/ (export CSV / API) |
-| Miroir Kaggle (plus léger) | https://www.kaggle.com/datasets/cfpb/us-consumer-finance-complaints |
+| **Version retenue** | Kaggle `cfpb/us-consumer-finance-complaints` (publiée par le CFPB, fichier `consumer_complaints.csv`, 2011–2016) : https://www.kaggle.com/datasets/cfpb/us-consumer-finance-complaints |
+| Source d'origine | https://www.consumerfinance.gov/data-research/consumer-complaints/ |
 | Licence | Données publiques du gouvernement américain (domaine public) |
-| Variable d'entrée | `Consumer complaint narrative` (texte libre, anglais, anonymisé : `XXXX`) |
-| Variable cible | `Product` (≈ 10–18 modalités selon la version, regroupées en ~6 classes) |
-| Volume | Plusieurs centaines de milliers de réclamations avec texte → échantillon de ~50 000 lignes |
+| Variable d'entrée | `consumer_complaint_narrative` (texte libre, anglais, anonymisé : `XXXX`) |
+| Variable cible | `product` (12 produits, regroupés en 6 classes métier) |
+| Volume | ≈ 555 000 réclamations dont ≈ 66 000 avec texte → échantillon stratifié de 50 000 lignes |
 
 ### Pourquoi ce cas d'usage ? (justification)
 
@@ -104,7 +104,7 @@ code sera précédée d'une cellule Markdown d'explication et suivie d'une inter
 - Modèles : Naive Bayes, SVM, régression logistique, RNN/CNN, Transformers ; leurs forces/limites en classification de texte.
 
 ### 2. Chargement et exploration des données — *partie 60 %*
-- Chargement du CSV (colonnes `Product`, `Sub-product`, `Issue`, `Consumer complaint narrative`, `Date received`).
+- Chargement du CSV (colonnes `product`, `sub_product`, `issue`, `consumer_complaint_narrative`, `date_received`).
 - Dimensions, types, valeurs manquantes (part de réclamations sans texte).
 - Distribution des classes (graphique en barres) → mise en évidence du déséquilibre.
 - Longueur des textes (nb de mots) : histogramme, boxplot par classe.
@@ -150,15 +150,16 @@ code sera précédée d'une cellule Markdown d'explication et suivie d'une inter
 ```
 tp2_3/
 ├── PLAN.md                                   # ce document
-├── TP2_3_classification_reclamations.ipynb   # notebook livrable (à venir)
-├── requirements.txt                          # dépendances (pandas, scikit-learn, nltk, matplotlib, seaborn, wordcloud)
+├── TP2_3_classification_reclamations.ipynb   # notebook livrable
+├── requirements.txt                          # dépendances (pandas, scikit-learn, nltk, matplotlib, seaborn, kagglehub)
 └── data/
-    └── complaints_sample.csv                 # échantillon du jeu de données livré (à venir)
+    ├── consumer_complaints.csv               # fichier brut Kaggle (non versionné, téléchargé par le notebook)
+    └── complaints_prepared.csv.gz            # jeu préparé livré (généré par le notebook)
 ```
 
 ## 5. Étapes de réalisation
 
-1. Télécharger le jeu de données (Kaggle ou export CSV du CFPB) et produire l'échantillon `data/complaints_sample.csv`.
+1. Télécharger le jeu de données Kaggle `cfpb/us-consumer-finance-complaints` (automatique via `kagglehub`) ; le notebook produit `data/complaints_prepared.csv.gz`.
 2. Rédiger les sections 0–1 (introduction, revue de littérature).
 3. Implémenter et commenter l'exploration (2) puis le nettoyage / la préparation (3).
 4. Implémenter la vectorisation (4) et les modèles (5).
