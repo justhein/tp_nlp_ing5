@@ -26,7 +26,7 @@ fédérale américaine).
 | Source d'origine | https://www.consumerfinance.gov/data-research/consumer-complaints/ |
 | Licence | Données publiques du gouvernement américain (domaine public) |
 | Variable d'entrée | `consumer_complaint_narrative` (texte libre, anglais, anonymisé : `XXXX`) |
-| Variable cible | `product` (12 produits, regroupés en 6 classes métier) |
+| Variable cible | `product` (11 produits, regroupés en 6 classes métier) |
 | Volume | ≈ 555 000 réclamations dont ≈ 66 000 avec texte → échantillon stratifié de 50 000 lignes |
 
 ### Pourquoi ce cas d'usage ? (justification)
